@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modificar y Eliminar Libros</title>
+</head>
+<body>
+    <h1>Modificar y Eliminar Libros</h1>
+    <table border="1">
+        <tr>
+            <th>Nombre del libro</th>
+            <th>Autor</th>
+            <th>ISBN</th>
+            <th>Descripción</th>
+            <th>Eliminar</th>
+            <th>Modificar</th>
+        </tr>
+        <?php
+        // Conexión a la base de datos
+        $conexion = mysqli_connect("localhost", "usuario", "contraseña", "nombre_de_la_base_de_datos");
+
+        // Consulta SQL para obtener los libros
+        $consulta = "SELECT * FROM libros";
+        $resultado = mysqli_query($conexion, $consulta);
+
+        // Iterar a través de los resultados y mostrar en la tabla
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            echo "<tr>";
+            echo "<td>{$fila['nombre']}</td>";
+            echo "<td>{$fila['autor']}</td>";
+            echo "<td>{$fila['isbn']}</td>";
+            echo "<td>{$fila['descripcion']}</td>";
+            echo "<td><a href='eliminar.php?id={$fila['id']}'>Eliminar</a></td>";
+            echo "<td><a href='editar.php?id={$fila['id']}'>Editar</a></td>";
+            echo "</tr>";
+        }
+
+        // Cerrar la conexión a la base de datos
+        mysqli_close($conexion);
+        ?>
+    </table>
+</body>
+</html>
